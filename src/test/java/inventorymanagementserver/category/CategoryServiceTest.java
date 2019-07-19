@@ -4,6 +4,10 @@ import inventorymanagementserver.ServerMainClassTest;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.List;
+import java.util.UUID;
+
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 
 public class CategoryServiceTest extends ServerMainClassTest {
@@ -14,17 +18,34 @@ public class CategoryServiceTest extends ServerMainClassTest {
     CategoryRepository categoryRepository;
 
     @Test
-    public void registerCategory(){
+    public void registerCategory() throws Exception {
         Category category = createCategory();
         category = categoryService.registerCategory(category);
         assertNotNull(category);
     }
 
+    @Test
+    public void findRegisterById() throws Exception {
+        Category category = createSavedCategory();
+        Long id = category.getId();
+        category = categoryService.findById(id);
+        assertNotNull(category);
+    }
+
+    @Test
+    public void findAllCategories() throws Exception {
+        List<Category> categories = categoryService.findAll();
+        assertFalse(categories.isEmpty());
+    }
+
+
     private Category createCategory() {
-        return new Category("name");
+        String name = UUID.randomUUID().toString();
+        return new Category(name);
     }
     private Category createSavedCategory() {
-        return categoryRepository.save(new Category("name"));
+        String name = UUID.randomUUID().toString();
+        return categoryRepository.save(new Category(name));
     }
 
 }
