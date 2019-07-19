@@ -58,4 +58,10 @@ public class ItemServiceImpl implements ItemService {
         itemCategoryFacade.checkIfCategoryExist(item.getCategory());
         return itemRepository.save(item);
     }
+
+    @Override
+    public void deleteById(Long id) throws Exception {
+        findById(id);
+        itemRepository.deleteById(id);
+    }
 }
