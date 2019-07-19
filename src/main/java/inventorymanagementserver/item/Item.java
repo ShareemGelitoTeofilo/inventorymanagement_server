@@ -29,6 +29,7 @@ public class Item {
         this.name = name;
         this.brand = brand;
         this.color = color;
+        this.category = category;
         this.price = price;
     }
 }
