@@ -38,6 +38,20 @@ public class CategoryServiceTest extends ServerMainClassTest {
         assertFalse(categories.isEmpty());
     }
 
+    @Test
+    public void updateCategory() throws Exception {
+        Category category = createSavedCategory();
+        category.setName("updated name a");
+        category = categoryService.updateCategory(category);
+        assertNotNull(category);
+    }
+
+    @Test
+    public void deleteCategoryById() throws Exception {
+        Category category = createSavedCategory();
+        categoryService.deleteById(category.getId());
+    }
+
 
     private Category createCategory() {
         String name = UUID.randomUUID().toString();

@@ -35,4 +35,20 @@ public class CategoryServiceImpl implements CategoryService {
         }
         return categories;
     }
+
+    @Override
+    public Category updateCategory(Category category) throws Exception {
+        findById(category.getId());
+        Category existingCategoryWithSameName = categoryRepository.findByName(category.getName());
+        if(existingCategoryWithSameName != null && !existingCategoryWithSameName.equals(category)){
+            throw new Exception("Category name already taken");
+        }
+        return categoryRepository.save(category);
+    }
+
+    @Override
+    public void deleteById(Long id) throws Exception {
+        findById(id);
+        categoryRepository.deleteById(id);
+    }
 }
