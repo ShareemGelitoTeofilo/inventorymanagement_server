@@ -10,6 +10,8 @@ public class ItemServiceImpl implements ItemService {
 
     @Autowired
     ItemRepository itemRepository;
+    @Autowired
+    ItemCategoryFacade itemCategoryFacade;
 
     @Override
     public Item registerItem(Item item) throws Exception {
@@ -44,5 +46,16 @@ public class ItemServiceImpl implements ItemService {
             throw new Exception("No item/s found");
         }
         return items;
+    }
+
+    @Override
+    public Item updateItem(Item item) throws Exception {
+        Item existingItemWithSameName = itemRepository.findByName(item.getName());
+        if(existingItemWithSameName != null && !existingItemWithSameName.equals(item)){
+            String message = String.format("Item name is already taken");
+            throw new Exception(message);
+        }
+        itemCategoryFacade.checkIfCategoryExist(item.getCategory());
+        return itemRepository.save(item);
     }
 }

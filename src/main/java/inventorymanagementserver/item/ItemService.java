@@ -7,4 +7,5 @@ public interface ItemService {
     Item findById(Long id) throws Exception;
     Item findByName(String name) throws Exception;
     List<Item> findAll() throws Exception;
+    Item updateItem(Item item) throws Exception;
 }
