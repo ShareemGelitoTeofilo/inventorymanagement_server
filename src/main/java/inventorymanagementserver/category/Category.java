@@ -20,6 +20,8 @@ public class Category {
     private Long id;
     private String name;
 
+    protected Category(){}
+
     public Category(String name) {
         this.name = name;
     }
