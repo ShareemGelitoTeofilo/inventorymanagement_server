@@ -47,6 +47,18 @@ public class ItemServiceTest extends ServerMainClassTest {
         assertFalse(items.isEmpty());
     }
 
+    @Test
+    public void updateItem() throws Exception {
+        Item item = createSavedItem();
+        item.setName("namehahaheh");
+        item.setBrand("brand");
+        item.setCategory(createCategory());
+        item.setColor("color");
+        item.setPrice(123);
+        item = itemService.updateItem(item);
+        assertNotNull(item);
+    }
+
     private Item createItem() {
         String name = UUID.randomUUID().toString();
         return new Item(
