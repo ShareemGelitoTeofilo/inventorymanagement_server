@@ -7,7 +7,6 @@ import inventorymanagementserver.item.ItemRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.util.Properties;
 import java.util.UUID;
 
 @Component
@@ -29,7 +28,7 @@ public class TestHelper {
         return testHelperInstance;
     }
 
-    private Item createSavedItem() {
+    public Item createSavedItem() {
         String name = UUID.randomUUID().toString();
         return itemRepository.save(new Item(
                 name, "brand", "color",
@@ -37,7 +36,7 @@ public class TestHelper {
         ));
     }
 
-    private Category createCategory() {
+    public Category createCategory() {
         Category category = new Category("name");
         return categoryRepository.save(category);
     }
