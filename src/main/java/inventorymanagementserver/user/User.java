@@ -1,4 +1,4 @@
-package inventorymanagementserver;
+package inventorymanagementserver.user;
 
 import lombok.EqualsAndHashCode;
 import lombok.Getter;

@@ -1,8 +1,6 @@
 package inventorymanagementserver.user;
 
 import inventorymanagementserver.ServerMainClassTest;
-import inventorymanagementserver.User;
-import inventorymanagementserver.UserRepository;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
