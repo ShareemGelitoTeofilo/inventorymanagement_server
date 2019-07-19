@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
 
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 
 public class UserRepositoryTest extends ServerMainClassTest {
@@ -38,7 +39,7 @@ public class UserRepositoryTest extends ServerMainClassTest {
     @Test
     public void findAllUsers(){
         List<User> users = userRepository.findAll();
-        assertNotNull(users);
+        assertFalse(users.isEmpty());
     }
 
     @Test
