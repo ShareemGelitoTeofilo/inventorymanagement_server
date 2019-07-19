@@ -1,5 +1,6 @@
 package inventorymanagementserver;
 
+import inventorymanagementserver.category.Category;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
