@@ -3,7 +3,9 @@ package inventorymanagementserver.item;
 import inventorymanagementserver.category.Category;
 import inventorymanagementserver.category.CategoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
+@Component
 class ItemCategoryFacade {
 
     @Autowired
