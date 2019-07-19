@@ -1,4 +1,4 @@
-package inventorymanagementserver;
+package inventorymanagementserver.stock;
 
 import inventorymanagementserver.item.Item;
 import lombok.EqualsAndHashCode;
