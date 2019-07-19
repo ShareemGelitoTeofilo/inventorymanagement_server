@@ -1,4 +1,4 @@
-package inventorymanagementserver.user;
+package inventorymanagementserver;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
