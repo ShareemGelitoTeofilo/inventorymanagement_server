@@ -59,6 +59,12 @@ public class ItemServiceTest extends ServerMainClassTest {
         assertNotNull(item);
     }
 
+    @Test
+    public void deleteItem() {
+        Item item = createSavedItem();
+        itemService.deleteById(item.getId());
+    }
+
     private Item createItem() {
         String name = UUID.randomUUID().toString();
         return new Item(
