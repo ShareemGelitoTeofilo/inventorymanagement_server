@@ -8,4 +8,5 @@ public interface ItemService {
     Item findByName(String name) throws Exception;
     List<Item> findAll() throws Exception;
     Item updateItem(Item item) throws Exception;
+    void deleteById(Long id) throws Exception;
 }
