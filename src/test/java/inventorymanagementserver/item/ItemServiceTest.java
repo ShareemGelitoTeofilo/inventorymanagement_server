@@ -60,7 +60,7 @@ public class ItemServiceTest extends ServerMainClassTest {
     }
 
     @Test
-    public void deleteItem() {
+    public void deleteItem() throws Exception {
         Item item = createSavedItem();
         itemService.deleteById(item.getId());
     }
