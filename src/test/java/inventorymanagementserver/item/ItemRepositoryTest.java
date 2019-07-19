@@ -7,6 +7,7 @@ import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
+import java.util.UUID;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
@@ -30,6 +31,13 @@ public class ItemRepositoryTest extends ServerMainClassTest {
     public void findItemById(){
         Item item = createSavedItem();
         item = itemRepository.findById(item.getId()).get();
+        assertNotNull(item);
+    }
+
+    @Test
+    public void findItemByName(){
+        Item item = createSavedItem();
+        item = itemRepository.findByName(item.getName());
         assertNotNull(item);
     }
 
@@ -59,15 +67,17 @@ public class ItemRepositoryTest extends ServerMainClassTest {
 
 
     private Item createItem() {
+        String name = UUID.randomUUID().toString();
         return new Item(
-                "name", "brand", "color",
+                name, "brand", "color",
                 createCategory(), 123.00
         );
     }
 
     private Item createSavedItem() {
+        String name = UUID.randomUUID().toString();
         return itemRepository.save(new Item(
-                "name", "brand", "color",
+                name, "brand", "color",
                 createCategory(), 123.00
         ));
     }
