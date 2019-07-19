@@ -5,6 +5,7 @@ import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
+import java.util.UUID;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
@@ -29,6 +30,13 @@ public class CategoryRepositoryTest extends ServerMainClassTest {
     }
 
     @Test
+    public void findCategoryByName(){
+        Category category = createSavedCategory();
+        category = categoryRepository.findByName(category.getName());
+        assertNotNull(category);
+    }
+
+    @Test
     public void findAllCategories(){
         List<Category> categories = categoryRepository.findAll();
         assertFalse(categories.isEmpty());
@@ -37,7 +45,6 @@ public class CategoryRepositoryTest extends ServerMainClassTest {
     @Test
     public void updateCategory(){
         Category category = createSavedCategory();
-        category.setName("new name");
         category = categoryRepository.save(category);
         assertNotNull(category);
     }
@@ -50,7 +57,8 @@ public class CategoryRepositoryTest extends ServerMainClassTest {
     
 
     private Category createSavedCategory() {
-        return categoryRepository.save(new Category("name"));
+        String name = UUID.randomUUID().toString();
+        return categoryRepository.save(new Category(name));
     }
 
 
