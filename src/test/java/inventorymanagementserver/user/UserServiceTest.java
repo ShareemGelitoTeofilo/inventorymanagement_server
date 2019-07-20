@@ -23,6 +23,24 @@ public class UserServiceTest extends ServerMainClassTest {
         assertNotNull(user);
     }
 
+    @Test
+    public void loginUser() throws Exception {
+        User user = testHelper.createSavedUser();
+        user = userService.login(user.getUsername(), user.getPassword());
+        assertNotNull(user);
+    }
 
+    @Test
+    public void findById() throws Exception {
+        User user = testHelper.createSavedUser();
+        user = userService.findById(user.getId());
+        assertNotNull(user);
+    }
 
+    @Test
+    public void findByUsername() throws Exception {
+        User user = testHelper.createSavedUser();
+        user = userService.findByUsername(user.getUsername());
+        assertNotNull(user);
+    }
 }
