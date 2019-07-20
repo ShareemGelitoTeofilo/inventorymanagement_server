@@ -35,6 +35,13 @@ public class UserRepositoryTest extends ServerMainClassTest {
     }
 
     @Test
+    public void findUserByName(){
+        String username = createSavedUser().getUsername();
+        User user = userRepository.findByUsername(username);
+        assertNotNull(user);
+    }
+
+    @Test
     public void findAllUsers(){
         List<User> users = userRepository.findAll();
         assertFalse(users.isEmpty());
@@ -59,11 +66,11 @@ public class UserRepositoryTest extends ServerMainClassTest {
 
 
     private User createUser(){
-        return new User("name", "address", "username", "password");
+        return new User("name123", "address", "username", "password");
     }
 
     private User createSavedUser(){
-        User user = new User("name", "address", "username", "password");
+        User user = new User("name123", "address", "username123", "password");
         return userRepository.save(user);
     }
 
