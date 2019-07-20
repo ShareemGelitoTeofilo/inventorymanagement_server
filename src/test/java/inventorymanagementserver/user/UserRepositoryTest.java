@@ -1,6 +1,7 @@
 package inventorymanagementserver.user;
 
 import inventorymanagementserver.ServerMainClassTest;
+import inventorymanagementserver.TestHelper;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -12,31 +13,33 @@ import static org.junit.Assert.assertNotNull;
 public class UserRepositoryTest extends ServerMainClassTest {
 
     @Autowired
-    UserRepository userRepository;
+    private UserRepository userRepository;
+    @Autowired
+    private TestHelper testHelper;
 
     @Test
     public void saveUser(){
-        User user = createUser();
+        User user = testHelper.createUser();
         assertNotNull(userRepository.save(user));
     }
 
     @Test
     public void findUserByUsernameAndPassword(){
-        User user = createUser();
+        User user = testHelper.createUser();
         user = userRepository.findByUsernameAndPassword(user.getUsername(), user.getPassword());
         assertNotNull(user);
     }
 
     @Test
     public void findUserById(){
-        User user = createSavedUser();
+        User user = testHelper.createSavedUser();
         user = userRepository.findById(user.getId()).get();
         assertNotNull(user);
     }
 
     @Test
     public void findUserByName(){
-        String username = createSavedUser().getUsername();
+        String username = testHelper.createSavedUser().getUsername();
         User user = userRepository.findByUsername(username);
         assertNotNull(user);
     }
@@ -49,7 +52,7 @@ public class UserRepositoryTest extends ServerMainClassTest {
 
     @Test
     public void updateUser(){
-        User user = createSavedUser();
+        User user = testHelper.createSavedUser();
         user.setAddress("new address");
         user.setName("new name");
         user.setPassword("new password");
@@ -60,18 +63,8 @@ public class UserRepositoryTest extends ServerMainClassTest {
 
     @Test
     public void deleteUser(){
-        User user = createSavedUser();
+        User user = testHelper.createSavedUser();
         userRepository.deleteById(user.getId());
-    }
-
-
-    private User createUser(){
-        return new User("name123", "address", "username", "password");
-    }
-
-    private User createSavedUser(){
-        User user = new User("name123", "address", "username123", "password");
-        return userRepository.save(user);
     }
 
 }
