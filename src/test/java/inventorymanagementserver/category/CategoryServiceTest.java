@@ -14,9 +14,9 @@ import static org.junit.Assert.assertNotNull;
 public class CategoryServiceTest extends ServerMainClassTest {
 
     @Autowired
-    CategoryService categoryService;
+    private CategoryService categoryService;
     @Autowired
-    TestHelper testHelper;
+    private TestHelper testHelper;
 
     @Test
     public void registerCategory() throws Exception {
