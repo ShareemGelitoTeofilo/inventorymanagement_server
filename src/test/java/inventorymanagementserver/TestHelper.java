@@ -17,16 +17,6 @@ public class TestHelper {
     @Autowired
     private CategoryRepository categoryRepository;
 
-    private static TestHelper testHelperInstance;
-
-    private TestHelper(){}
-
-    public static TestHelper getTestHelperInstance() {
-        if(testHelperInstance == null){
-            testHelperInstance = new TestHelper();
-        }
-        return testHelperInstance;
-    }
 
     public Item createSavedItem() {
         String name = UUID.randomUUID().toString();
@@ -40,9 +30,4 @@ public class TestHelper {
         Category category = new Category("name");
         return categoryRepository.save(category);
     }
-
-
-
-
-
 }
