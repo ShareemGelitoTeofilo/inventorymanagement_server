@@ -5,8 +5,10 @@ import inventorymanagementserver.TestHelper;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.List;
 import java.util.UUID;
 
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 
 public class UserServiceTest extends ServerMainClassTest {
@@ -42,5 +44,26 @@ public class UserServiceTest extends ServerMainClassTest {
         User user = testHelper.createSavedUser();
         user = userService.findByUsername(user.getUsername());
         assertNotNull(user);
+    }
+
+    @Test
+    public void findAll() {
+        List<User> users = userService.findAll();
+        assertFalse(users.isEmpty());
+    }
+
+    @Test
+    public void update() throws Exception {
+        User user = testHelper.createSavedUser();
+        user.setUsername("new username123");
+        user.setPassword("new password");
+        user = userService.update(user);
+        assertNotNull(user);
+    }
+
+    @Test
+    public void deleteById() throws Exception {
+        User user = testHelper.createSavedUser();
+        userService.deleteById(user.getId());
     }
 }
