@@ -13,7 +13,7 @@ import static org.junit.Assert.assertNotNull;
 public class ItemServiceTest extends ServerMainClassTest {
 
     @Autowired
-    ItemService itemService;
+    private ItemService itemService;
     @Autowired
     private TestHelper testHelper;
 
