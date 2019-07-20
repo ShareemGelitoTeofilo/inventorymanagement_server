@@ -1,5 +1,6 @@
 package inventorymanagementserver.stock;
 
+import inventorymanagementserver.item.Item;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,5 +13,21 @@ public class StockServiceImpl implements StockService {
     @Override
     public Stock insert(Stock stock) {
         return stockRepository.save(stock);
+    }
+
+    @Override
+    public Stock findById(Long id) throws Exception {
+        String message = String.format("Stock with ID %s not found", id);
+        return stockRepository.findById(id).orElseThrow(() -> new Exception(message));
+    }
+
+    @Override
+    public Stock findByItemId(Long id) throws Exception {
+        String message = String.format("There's no stock for item with ID %s", id);
+        Stock stock = stockRepository.findByItemId(id);
+        if(stock == null){
+            throw new Exception(message);
+        }
+        return stock;
     }
 }
