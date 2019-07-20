@@ -8,4 +8,5 @@ public interface StockService {
     Stock findByItemId(Long id) throws Exception;
     List<Stock> findAll() throws Exception;
     Stock update(Stock stock) throws Exception;
+    void deleteById(Long id) throws Exception;
 }
