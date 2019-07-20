@@ -1,6 +1,5 @@
 package inventorymanagementserver.stock;
 
-import inventorymanagementserver.item.Item;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
