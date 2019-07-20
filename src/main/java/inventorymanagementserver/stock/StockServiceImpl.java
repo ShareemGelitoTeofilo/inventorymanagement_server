@@ -4,6 +4,8 @@ import inventorymanagementserver.item.Item;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class StockServiceImpl implements StockService {
 
@@ -29,5 +31,21 @@ public class StockServiceImpl implements StockService {
             throw new Exception(message);
         }
         return stock;
+    }
+
+    @Override
+    public List<Stock> findAll() throws Exception {
+        List<Stock> stocks = stockRepository.findAll();
+        if(stocks == null ||  stocks.isEmpty()){
+            throw new Exception("No stocks found");
+        }
+        return stocks;
+    }
+
+    @Override
+    public Stock update(Stock stock) throws Exception {
+        Stock existingStock = findById(stock.getId());
+        existingStock.setQuantity(stock.getQuantity());
+        return stockRepository.save(existingStock);
     }
 }
