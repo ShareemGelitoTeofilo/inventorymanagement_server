@@ -47,13 +47,13 @@ public class TestHelper {
         return categoryRepository.save(category);
     }
 
-    private Stock createStock() {
+    public Stock createStock() {
         Item item = createSavedItem();
         int quantity = 12;
         return new Stock(item, quantity);
     }
 
-    private Stock createSavedStock() {
+    public Stock createSavedStock() {
         Item item = createSavedItem();
         int quantity = 12;
         return stockRepository.save(
