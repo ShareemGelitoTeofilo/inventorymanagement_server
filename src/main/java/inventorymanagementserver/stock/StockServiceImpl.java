@@ -51,7 +51,7 @@ public class StockServiceImpl implements StockService {
 
     @Override
     public void deleteById(Long id) throws Exception {
-        Stock existingStock = findById(id);
+        findById(id);
         stockRepository.deleteById(id);
     }
 }
