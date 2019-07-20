@@ -1,6 +1,7 @@
 package inventorymanagementserver.stock;
 
 import inventorymanagementserver.ServerMainClassTest;
+import inventorymanagementserver.TestHelper;
 import inventorymanagementserver.category.Category;
 import inventorymanagementserver.category.CategoryRepository;
 import inventorymanagementserver.item.Item;
@@ -16,28 +17,26 @@ import static org.junit.Assert.assertNotNull;
 public class StockRepositoryTest extends ServerMainClassTest {
 
     @Autowired
-    StockRepository stockRepository;
+    private StockRepository stockRepository;
     @Autowired
-    ItemRepository itemRepository;
-    @Autowired
-    CategoryRepository categoryRepository;
+    private TestHelper testHelper;
 
     @Test
     public void saveStock(){
-        Stock stock = stockRepository.save(createStock());
+        Stock stock = stockRepository.save(testHelper.createStock());
         assertNotNull(stock);
     }
 
     @Test
     public void findStockById(){
-        Stock stock = createSavedStock();
+        Stock stock = testHelper.createSavedStock();
         stock = stockRepository.findById(stock.getId()).get();
         assertNotNull(stock);
     }
 
     @Test
     public void findStockByItem(){
-        Stock stock = createSavedStock();
+        Stock stock = testHelper.createSavedStock();
         Long itemId = stock.getItem().getId();
         stock = stockRepository.findByItemId(itemId);
         assertNotNull(stock);
@@ -51,28 +50,7 @@ public class StockRepositoryTest extends ServerMainClassTest {
 
     @Test
     public void deletedStockById(){
-        Stock stock = createSavedStock();
+        Stock stock = testHelper.createSavedStock();
         stockRepository.deleteById(stock.getId());
     }
-
-
-    private Stock createStock(){
-        return new Stock(createItem(), 12);
-    }
-
-    private Stock createSavedStock(){
-        return stockRepository.save(
-                new Stock(createItem(), 12)
-        );
-    }
-
-    private Item createItem(){
-        Category category = categoryRepository.save(new Category("name"));
-        return itemRepository.save(new Item(
-                "name", "brand", "color",
-                category, 123.00
-        ));
-    }
-
-
 }
