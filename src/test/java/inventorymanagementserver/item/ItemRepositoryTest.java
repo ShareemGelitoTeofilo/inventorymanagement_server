@@ -2,6 +2,7 @@ package inventorymanagementserver.item;
 
 import inventorymanagementserver.ServerMainClassTest;
 import inventorymanagementserver.TestHelper;
+import inventorymanagementserver.category.Category;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -51,7 +52,7 @@ public class ItemRepositoryTest extends ServerMainClassTest {
         item.setName("new name");
         item.setBrand("new brand");
         item.setColor("new color");
-        item.setCategory(testHelper.createCategory());
+        item.setCategory(testHelper.createSavedCategory());
         item.setPrice(123.23);
         item = itemRepository.save(item);
         assertNotNull(item);
@@ -61,6 +62,13 @@ public class ItemRepositoryTest extends ServerMainClassTest {
     public void deleteItemById(){
         Item item = testHelper.createSavedItem();
         itemRepository.delete(item);
+    }
+
+    @Test
+    public void findAllByCategory() {
+        Category category = testHelper.createSavedItem().getCategory();
+        List<Item> items = itemRepository.findAllByCategory(category);
+        assertFalse(items.isEmpty());
     }
 
 }
