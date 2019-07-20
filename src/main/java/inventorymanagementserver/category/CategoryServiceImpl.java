@@ -1,5 +1,6 @@
 package inventorymanagementserver.category;
 
+import inventorymanagementserver.item.ItemCategoryFacade;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -10,6 +11,8 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Autowired
     CategoryRepository categoryRepository;
+    @Autowired
+    ItemCategoryFacade itemCategoryFacade;
 
     @Override
     public Category registerCategory(Category category) throws Exception {
@@ -48,7 +51,10 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public void deleteById(Long id) throws Exception {
-        findById(id);
+        Category category = findById(id);
+        if(itemCategoryFacade.checkIfCategoryHasRelationship(category)){
+            throw new Exception("This category is used by an item");
+        }
         categoryRepository.deleteById(id);
     }
 }
