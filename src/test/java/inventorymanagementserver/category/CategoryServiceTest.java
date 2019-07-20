@@ -1,6 +1,7 @@
 package inventorymanagementserver.category;
 
 import inventorymanagementserver.ServerMainClassTest;
+import inventorymanagementserver.TestHelper;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -15,18 +16,18 @@ public class CategoryServiceTest extends ServerMainClassTest {
     @Autowired
     CategoryService categoryService;
     @Autowired
-    CategoryRepository categoryRepository;
+    TestHelper testHelper;
 
     @Test
     public void registerCategory() throws Exception {
-        Category category = createCategory();
+        Category category = testHelper.createCategory();
         category = categoryService.registerCategory(category);
         assertNotNull(category);
     }
 
     @Test
     public void findRegisterById() throws Exception {
-        Category category = createSavedCategory();
+        Category category = testHelper.createSavedCategory();
         Long id = category.getId();
         category = categoryService.findById(id);
         assertNotNull(category);
@@ -40,7 +41,7 @@ public class CategoryServiceTest extends ServerMainClassTest {
 
     @Test
     public void updateCategory() throws Exception {
-        Category category = createSavedCategory();
+        Category category = testHelper.createSavedCategory();
         category.setName("updated name a");
         category = categoryService.updateCategory(category);
         assertNotNull(category);
@@ -48,18 +49,8 @@ public class CategoryServiceTest extends ServerMainClassTest {
 
     @Test
     public void deleteCategoryById() throws Exception {
-        Category category = createSavedCategory();
+        Category category = testHelper.createSavedCategory();
         categoryService.deleteById(category.getId());
-    }
-
-
-    private Category createCategory() {
-        String name = UUID.randomUUID().toString();
-        return new Category(name);
-    }
-    private Category createSavedCategory() {
-        String name = UUID.randomUUID().toString();
-        return categoryRepository.save(new Category(name));
     }
 
 }
