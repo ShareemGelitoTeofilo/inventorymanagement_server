@@ -50,7 +50,9 @@ public class StockServiceTest extends ServerMainClassTest {
         assertNotNull(stock);
     }
 
-
-
-
+    @Test
+    public void deleteStockById() throws Exception {
+        Stock stock = testHelper.createSavedStock();
+        stockService.deleteById(stock.getId());
+    }
 }
