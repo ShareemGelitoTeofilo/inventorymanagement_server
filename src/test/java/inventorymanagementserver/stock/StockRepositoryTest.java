@@ -2,10 +2,6 @@ package inventorymanagementserver.stock;
 
 import inventorymanagementserver.ServerMainClassTest;
 import inventorymanagementserver.TestHelper;
-import inventorymanagementserver.category.Category;
-import inventorymanagementserver.category.CategoryRepository;
-import inventorymanagementserver.item.Item;
-import inventorymanagementserver.item.ItemRepository;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
