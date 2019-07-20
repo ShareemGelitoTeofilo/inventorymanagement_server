@@ -12,20 +12,28 @@ public class StockServiceTest extends ServerMainClassTest {
 
     @Autowired
     StockService stockService;
-
-    TestHelper testHelper = TestHelper.getTestHelperInstance();
+    @Autowired
+    TestHelper testHelper;
 
     @Test
     public void insertStock(){
-        Stock stock = createStock();
+        Stock stock = testHelper.createStock();
         assertNotNull(stockService.insert(stock));
     }
 
-    private Stock createStock() {
-        Item item = testHelper.createSavedItem();
-        int quantity = 12;
-        return new Stock(item, quantity);
+    @Test
+    public void findStockById() throws Exception {
+        Stock stock = testHelper.createSavedStock();
+        assertNotNull(stockService.findById(stock.getId()));
     }
+
+    @Test
+    public void findStockByItem() throws Exception {
+        Item item = testHelper.createSavedStock().getItem();
+        assertNotNull(stockService.findByItemId(item.getId()));
+    }
+
+
 
 
 }
