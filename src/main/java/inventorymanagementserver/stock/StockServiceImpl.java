@@ -48,4 +48,10 @@ public class StockServiceImpl implements StockService {
         existingStock.setQuantity(stock.getQuantity());
         return stockRepository.save(existingStock);
     }
+
+    @Override
+    public void deleteById(Long id) throws Exception {
+        Stock existingStock = findById(id);
+        stockRepository.deleteById(id);
+    }
 }
