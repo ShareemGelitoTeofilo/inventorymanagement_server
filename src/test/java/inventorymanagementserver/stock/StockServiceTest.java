@@ -14,9 +14,9 @@ import static org.junit.Assert.assertNotNull;
 public class StockServiceTest extends ServerMainClassTest {
 
     @Autowired
-    StockService stockService;
+    private StockService stockService;
     @Autowired
-    TestHelper testHelper;
+    private TestHelper testHelper;
 
     @Test
     public void insertStock(){
