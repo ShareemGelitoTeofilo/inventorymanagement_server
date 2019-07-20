@@ -6,6 +6,8 @@ import inventorymanagementserver.item.Item;
 import inventorymanagementserver.item.ItemRepository;
 import inventorymanagementserver.stock.Stock;
 import inventorymanagementserver.stock.StockRepository;
+import inventorymanagementserver.user.User;
+import inventorymanagementserver.user.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -20,6 +22,8 @@ public class TestHelper {
     private CategoryRepository categoryRepository;
     @Autowired
     private StockRepository stockRepository;
+    @Autowired
+    private UserRepository userRepository;
 
 
     public Item createItem() {
@@ -31,11 +35,7 @@ public class TestHelper {
     }
 
     public Item createSavedItem() {
-        String name = UUID.randomUUID().toString();
-        return itemRepository.save(new Item(
-                name, "brand", "color",
-                createSavedCategory(), 123.00
-        ));
+        return itemRepository.save(createItem());
     }
 
     public Category createCategory() {
@@ -43,8 +43,7 @@ public class TestHelper {
     }
 
     public Category createSavedCategory() {
-        Category category = new Category("name");
-        return categoryRepository.save(category);
+        return categoryRepository.save(createCategory());
     }
 
     public Stock createStock() {
@@ -54,10 +53,16 @@ public class TestHelper {
     }
 
     public Stock createSavedStock() {
-        Item item = createSavedItem();
-        int quantity = 12;
-        return stockRepository.save(
-                new Stock(item, quantity)
-        );
+        return stockRepository.save(createStock());
+    }
+
+    public User createUser(){
+        String name = UUID.randomUUID().toString();
+        String username = UUID.randomUUID().toString();
+        return new User( name,"address", username,"password");
+    }
+
+    public User createSavedUser(){
+        return userRepository.save(createUser());
     }
 }
