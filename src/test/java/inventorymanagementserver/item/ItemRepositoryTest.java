@@ -15,9 +15,9 @@ public class ItemRepositoryTest extends ServerMainClassTest {
 
 
     @Autowired
-    ItemRepository itemRepository;
+    private ItemRepository itemRepository;
     @Autowired
-    TestHelper testHelper;
+    private TestHelper testHelper;
 
     @Test
     public void saveItem(){
