@@ -8,6 +8,7 @@ import inventorymanagementserver.stock.Stock;
 import inventorymanagementserver.stock.StockRepository;
 import inventorymanagementserver.user.User;
 import inventorymanagementserver.user.UserRepository;
+import inventorymanagementserver.user.UserType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -59,7 +60,9 @@ public class TestHelper {
     public User createUser(){
         String name = UUID.randomUUID().toString();
         String username = UUID.randomUUID().toString();
-        return new User( name,"address", username,"password");
+        UserType[] userTypes = UserType.values();
+        UserType userType = userTypes[(int)(Math.random() * userTypes.length)];
+        return new User( name,"address", username,"password", userType);
     }
 
     public User createSavedUser(){
