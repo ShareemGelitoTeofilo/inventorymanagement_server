@@ -52,11 +52,19 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User update(User user) throws Exception {
-        findById(user.getId());
+        User userToUpdate = findById(user.getId());
         User existingUserWithSameName = userRepository.findByUsername(user.getUsername());
         if(existingUserWithSameName != null && !existingUserWithSameName.equals(user)){
             throw new Exception("Username already taken");
         }
+
+        userToUpdate.setName(user.getName());
+        userToUpdate.setAddress(user.getAddress());
+        userToUpdate.setUsername(user.getUsername());
+        if(!user.getPassword().isEmpty() || user.getPassword() != null){
+            userToUpdate.setPassword(user.getPassword());
+        }
+
         return userRepository.save(user);
     }
 
