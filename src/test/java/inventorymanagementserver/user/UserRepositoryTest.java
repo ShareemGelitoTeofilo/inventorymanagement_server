@@ -25,7 +25,7 @@ public class UserRepositoryTest extends ServerMainClassTest {
 
     @Test
     public void findUserByUsernameAndPassword(){
-        User user = testHelper.createUser();
+        User user = testHelper.createSavedUser();
         user = userRepository.findByUsernameAndPassword(user.getUsername(), user.getPassword());
         assertNotNull(user);
     }
