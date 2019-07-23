@@ -20,21 +20,21 @@ public class CategoryRepositoryTest extends ServerMainClassTest {
 
     @Test
     public void save(){
-        Category category = testHelper.createCategory();
+        Category category = testHelper.getCategory();
         category = categoryRepository.save(category);
         assertNotNull(category);
     }
 
     @Test
     public void findById(){
-        Category category = testHelper.createSavedCategory();
+        Category category = testHelper.createCategory();
         category = categoryRepository.findById(category.getId()).get();
         assertNotNull(category);
     }
 
     @Test
     public void findByName(){
-        Category category = testHelper.createSavedCategory();
+        Category category = testHelper.createCategory();
         category = categoryRepository.findByName(category.getName());
         assertNotNull(category);
     }
@@ -47,7 +47,7 @@ public class CategoryRepositoryTest extends ServerMainClassTest {
 
     @Test
     public void update(){
-        Category category = testHelper.createSavedCategory();
+        Category category = testHelper.createCategory();
         String name = UUID.randomUUID().toString().substring(0, 8);
         category.setName(name);
         category = categoryRepository.save(category);
@@ -56,7 +56,7 @@ public class CategoryRepositoryTest extends ServerMainClassTest {
 
     @Test
     public void deleteById(){
-        Category category = testHelper.createSavedCategory();
+        Category category = testHelper.createCategory();
         categoryRepository.deleteById(category.getId());
     }
 }

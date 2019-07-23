@@ -20,14 +20,14 @@ public class CategoryServiceTest extends ServerMainClassTest {
 
     @Test
     public void insert() {
-        Category category = testHelper.createCategory();
+        Category category = testHelper.getCategory();
         category = categoryService.insert(category);
         assertNotNull(category);
     }
 
     @Test
     public void findById() {
-        Category category = testHelper.createSavedCategory();
+        Category category = testHelper.createCategory();
         category = categoryService.findById(category.getId());
         assertNotNull(category);
     }
@@ -40,7 +40,7 @@ public class CategoryServiceTest extends ServerMainClassTest {
 
     @Test
     public void update() {
-        Category category = testHelper.createSavedCategory();
+        Category category = testHelper.createCategory();
         String name = UUID.randomUUID().toString();
         category.setName(name);
         category = categoryService.update(category);
@@ -49,7 +49,7 @@ public class CategoryServiceTest extends ServerMainClassTest {
 
     @Test
     public void deleteById() {
-        Category category = testHelper.createSavedCategory();
+        Category category = testHelper.createCategory();
         categoryService.deleteById(category.getId());
     }
 }

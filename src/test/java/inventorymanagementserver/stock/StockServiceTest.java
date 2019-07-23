@@ -20,19 +20,19 @@ public class StockServiceTest extends ServerMainClassTest {
 
     @Test
     public void insert(){
-        Stock stock = testHelper.createStock();
+        Stock stock = testHelper.getStock();
         assertNotNull(stockService.insert(stock));
     }
 
     @Test
     public void findById() {
-        Stock stock = testHelper.createSavedStock();
+        Stock stock = testHelper.createStock();
         assertNotNull(stockService.findById(stock.getId()));
     }
 
     @Test
     public void findByItemId() {
-        Item item = testHelper.createSavedStock().getItem();
+        Item item = testHelper.createStock().getItem();
         Stock stock = stockService.findByItemId(item.getId());
         assertNotNull(stock);
     }
@@ -45,7 +45,7 @@ public class StockServiceTest extends ServerMainClassTest {
 
     @Test
     public void update() {
-        Stock stock = testHelper.createSavedStock();
+        Stock stock = testHelper.createStock();
         int quantity = 12;
         stock = stockService.update(stock.getId(), quantity);
         assertNotNull(stock);
@@ -53,7 +53,7 @@ public class StockServiceTest extends ServerMainClassTest {
 
     @Test
     public void deleteById() {
-        Stock stock = testHelper.createSavedStock();
+        Stock stock = testHelper.createStock();
         stockService.deleteById(stock.getId());
     }
 }

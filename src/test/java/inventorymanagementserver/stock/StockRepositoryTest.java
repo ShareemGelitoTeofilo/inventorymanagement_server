@@ -19,20 +19,20 @@ public class StockRepositoryTest extends ServerMainClassTest {
 
     @Test
     public void save(){
-        Stock stock = stockRepository.save(testHelper.createStock());
+        Stock stock = stockRepository.save(testHelper.getStock());
         assertNotNull(stock);
     }
 
     @Test
     public void findById(){
-        Stock stock = testHelper.createSavedStock();
+        Stock stock = testHelper.createStock();
         stock = stockRepository.findById(stock.getId()).get();
         assertNotNull(stock);
     }
 
     @Test
     public void findByItemId(){
-        Stock stock = testHelper.createSavedStock();
+        Stock stock = testHelper.createStock();
         Long itemId = stock.getItem().getId();
         stock = stockRepository.findByItemId(itemId);
         assertNotNull(stock);
@@ -46,7 +46,7 @@ public class StockRepositoryTest extends ServerMainClassTest {
 
     @Test
     public void deletedStockById(){
-        Stock stock = testHelper.createSavedStock();
+        Stock stock = testHelper.createStock();
         stockRepository.deleteById(stock.getId());
     }
 }

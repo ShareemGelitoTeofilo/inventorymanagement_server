@@ -19,27 +19,27 @@ public class UserRepositoryTest extends ServerMainClassTest {
 
     @Test
     public void save(){
-        User user = testHelper.createUser();
+        User user = testHelper.getUser();
         assertNotNull(userRepository.save(user));
     }
 
     @Test
     public void findByUsernameAndPassword(){
-        User user = testHelper.createSavedUser();
+        User user = testHelper.createUser();
         user = userRepository.findByUsernameAndPassword(user.getUsername(), user.getPassword());
         assertNotNull(user);
     }
 
     @Test
     public void findById(){
-        User user = testHelper.createSavedUser();
+        User user = testHelper.createUser();
         user = userRepository.findById(user.getId()).get();
         assertNotNull(user);
     }
 
     @Test
     public void findByUsername(){
-        String username = testHelper.createSavedUser().getUsername();
+        String username = testHelper.createUser().getUsername();
         User user = userRepository.findByUsername(username);
         assertNotNull(user);
     }
@@ -52,8 +52,8 @@ public class UserRepositoryTest extends ServerMainClassTest {
 
     @Test
     public void update(){
-        User userToUpdate = testHelper.createSavedUser();
-        User user = testHelper.createUser();
+        User userToUpdate = testHelper.createUser();
+        User user = testHelper.getUser();
         userToUpdate.setAddress(user.getAddress());
         userToUpdate.setName(user.getName());
         userToUpdate.setPassword(user.getPassword());
@@ -64,7 +64,7 @@ public class UserRepositoryTest extends ServerMainClassTest {
 
     @Test
     public void deleteById(){
-        User user = testHelper.createSavedUser();
+        User user = testHelper.createUser();
         userRepository.deleteById(user.getId());
     }
 

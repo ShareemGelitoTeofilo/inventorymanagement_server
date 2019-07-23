@@ -20,21 +20,21 @@ public class ItemRepositoryTest extends ServerMainClassTest {
 
     @Test
     public void save(){
-        Item item = testHelper.createItem();
+        Item item = testHelper.getItem();
         item = itemRepository.save(item);
         assertNotNull(item);
     }
 
     @Test
     public void findById(){
-        Item item = testHelper.createSavedItem();
+        Item item = testHelper.createItem();
         item = itemRepository.findById(item.getId()).get();
         assertNotNull(item);
     }
 
     @Test
     public void findByName(){
-        Item item = testHelper.createSavedItem();
+        Item item = testHelper.createItem();
         item = itemRepository.findByName(item.getName());
         assertNotNull(item);
     }
@@ -47,12 +47,12 @@ public class ItemRepositoryTest extends ServerMainClassTest {
 
     @Test
     public void update(){
-        Item itemToUpdate = testHelper.createSavedItem();
-        Item item = testHelper.createItem();
+        Item itemToUpdate = testHelper.createItem();
+        Item item = testHelper.getItem();
         itemToUpdate.setName(item.getName());
         itemToUpdate.setBrand(item.getBrand());
         itemToUpdate.setColor(item.getColor());
-        itemToUpdate.setCategory(testHelper.createSavedCategory());
+        itemToUpdate.setCategory(testHelper.createCategory());
         itemToUpdate.setPrice(item.getPrice());
         itemToUpdate = itemRepository.save(itemToUpdate);
         assertNotNull(itemToUpdate);
@@ -60,13 +60,13 @@ public class ItemRepositoryTest extends ServerMainClassTest {
 
     @Test
     public void deleteById(){
-        Item item = testHelper.createSavedItem();
+        Item item = testHelper.createItem();
         itemRepository.deleteById(item.getId());
     }
 
     @Test
     public void findAllByCategory() {
-        Category category = testHelper.createSavedItem().getCategory();
+        Category category = testHelper.createItem().getCategory();
         List<Item> items = itemRepository.findAllByCategory(category);
         assertFalse(items.isEmpty());
     }

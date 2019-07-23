@@ -26,39 +26,41 @@ public class TestHelper {
     @Autowired
     private UserRepository userRepository;
 
-
-    public Item createItem() {
-        String name = UUID.randomUUID().toString();
+    public Item getItem() {
+        String name = UUID.randomUUID().toString().substring(0,8);
+        String brand = UUID.randomUUID().toString().substring(0,8);
+        String color = UUID.randomUUID().toString().substring(0,8);
+        double price = (Math.random() * 200) + 1;
         return new Item(
-                name, "brand", "color",
-                createSavedCategory(), 123.00
+                name, brand, color,
+                createCategory(), price
         );
     }
 
-    public Item createSavedItem() {
-        return itemRepository.save(createItem());
+    public Item createItem() {
+        return itemRepository.save(getItem());
     }
 
-    public Category createCategory() {
+    public Category getCategory() {
         String name = UUID.randomUUID().toString().substring(0, 8);
         return new Category(name);
     }
 
-    public Category createSavedCategory() {
-        return categoryRepository.save(createCategory());
+    public Category createCategory() {
+        return categoryRepository.save(getCategory());
     }
 
-    public Stock createStock() {
-        Item item = createSavedItem();
+    public Stock getStock() {
+        Item item = createItem();
         int quantity = 12;
         return new Stock(item, quantity);
     }
 
-    public Stock createSavedStock() {
-        return stockRepository.save(createStock());
+    public Stock createStock() {
+        return stockRepository.save(getStock());
     }
 
-    public User createUser(){
+    public User getUser(){
         String name = UUID.randomUUID().toString();
         String username = UUID.randomUUID().toString();
         UserType[] userTypes = UserType.values();
@@ -66,7 +68,7 @@ public class TestHelper {
         return new User( name,"address", username,"password", userType);
     }
 
-    public User createSavedUser(){
-        return userRepository.save(createUser());
+    public User createUser(){
+        return userRepository.save(getUser());
     }
 }
