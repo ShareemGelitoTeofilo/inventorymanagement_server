@@ -17,7 +17,7 @@ public class ItemServiceImpl implements ItemService {
     private CategoryRepository categoryRepository;
 
     @Override
-    public Item registerItem(Item item) {
+    public Item insert(Item item) {
         Item existingItemWithSameName = itemRepository.findByName(item.getName());
         if(existingItemWithSameName != null){
             throw new InventoryException("Item with the a same name already exist");
@@ -52,7 +52,7 @@ public class ItemServiceImpl implements ItemService {
     }
 
     @Override
-    public Item updateItem(Item item) {
+    public Item update(Item item) {
         checkIfCategoryExist(item.getCategory());
         Item existingItemWithSameName = itemRepository.findByName(item.getName());
         if(existingItemWithSameName != null && !existingItemWithSameName.equals(item)){
