@@ -6,6 +6,7 @@ import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
+import java.util.UUID;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
@@ -18,38 +19,37 @@ public class CategoryServiceTest extends ServerMainClassTest {
     private TestHelper testHelper;
 
     @Test
-    public void registerCategory() throws Exception {
+    public void registerCategory() {
         Category category = testHelper.createCategory();
         category = categoryService.registerCategory(category);
         assertNotNull(category);
     }
 
     @Test
-    public void findRegisterById() throws Exception {
+    public void findRegisterById() {
         Category category = testHelper.createSavedCategory();
-        Long id = category.getId();
-        category = categoryService.findById(id);
+        category = categoryService.findById(category.getId());
         assertNotNull(category);
     }
 
     @Test
-    public void findAllCategories() throws Exception {
+    public void findAllCategories() {
         List<Category> categories = categoryService.findAll();
         assertFalse(categories.isEmpty());
     }
 
     @Test
-    public void updateCategory() throws Exception {
+    public void updateCategory() {
         Category category = testHelper.createSavedCategory();
-        category.setName("updated name a");
+        String name = UUID.randomUUID().toString();
+        category.setName(name);
         category = categoryService.updateCategory(category);
         assertNotNull(category);
     }
 
     @Test
-    public void deleteCategoryById() throws Exception {
+    public void deleteCategoryById() {
         Category category = testHelper.createSavedCategory();
         categoryService.deleteById(category.getId());
     }
-
 }
