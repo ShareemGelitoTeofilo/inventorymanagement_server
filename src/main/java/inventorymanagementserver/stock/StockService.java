@@ -4,9 +4,9 @@ import java.util.List;
 
 public interface StockService {
     Stock insert(Stock stock);
-    Stock findById(Long id) throws Exception;
-    Stock findByItemId(Long id) throws Exception;
-    List<Stock> findAll() throws Exception;
-    Stock update(Stock stock) throws Exception;
-    void deleteById(Long id) throws Exception;
+    Stock findById(Long id);
+    Stock findByItemId(Long id);
+    List<Stock> findAll();
+    Stock update(Long stockId, int quantity);
+    void deleteById(Long id);
 }
