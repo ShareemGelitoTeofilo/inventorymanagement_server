@@ -19,39 +19,40 @@ public class StockServiceTest extends ServerMainClassTest {
     private TestHelper testHelper;
 
     @Test
-    public void insertStock(){
+    public void insert(){
         Stock stock = testHelper.createStock();
         assertNotNull(stockService.insert(stock));
     }
 
     @Test
-    public void findStockById() throws Exception {
+    public void findById() {
         Stock stock = testHelper.createSavedStock();
         assertNotNull(stockService.findById(stock.getId()));
     }
 
     @Test
-    public void findStockByItem() throws Exception {
+    public void findByItemId() {
         Item item = testHelper.createSavedStock().getItem();
-        assertNotNull(stockService.findByItemId(item.getId()));
+        Stock stock = stockService.findByItemId(item.getId());
+        assertNotNull(stock);
     }
 
     @Test
-    public void findAllStocks() throws Exception {
+    public void findAll() {
         List<Stock> stocks = stockService.findAll();
         assertFalse(stocks.isEmpty());
     }
 
     @Test
-    public void updateStock() throws Exception {
+    public void update() {
         Stock stock = testHelper.createSavedStock();
-        stock.setQuantity(12);
-        stock = stockService.update(stock);
+        int quantity = 12;
+        stock = stockService.update(stock.getId(), quantity);
         assertNotNull(stock);
     }
 
     @Test
-    public void deleteStockById() throws Exception {
+    public void deleteById() {
         Stock stock = testHelper.createSavedStock();
         stockService.deleteById(stock.getId());
     }
