@@ -18,48 +18,49 @@ public class ItemServiceTest extends ServerMainClassTest {
     private TestHelper testHelper;
 
     @Test
-    public void registerItem() throws Exception {
+    public void registerItem() {
         Item item = testHelper.createItem();
-        item = itemService.registerItem(item);
+        item = itemService.insert(item);
         assertNotNull(item);
     }
 
     @Test
-    public void findItemById() throws Exception {
+    public void findItemById() {
         Long id = testHelper.createSavedItem().getId();
         Item item = itemService.findById(id);
         assertNotNull(item);
     }
 
     @Test
-    public void findItemByName() throws Exception {
+    public void findItemByName() {
         String name = testHelper.createSavedItem().getName();
         Item item = itemService.findByName(name);
         assertNotNull(item);
     }
 
     @Test
-    public void findAllItem() throws Exception {
+    public void findAllItem() {
         List<Item> items = itemService.findAll();
         assertFalse(items.isEmpty());
     }
 
     @Test
-    public void updateItem() throws Exception {
-        Item item = testHelper.createSavedItem();
-        item.setName("namehahaheh");
-        item.setBrand("brand");
-        item.setCategory(testHelper.createSavedCategory());
-        item.setColor("color");
-        item.setPrice(123);
-        item = itemService.updateItem(item);
-        assertNotNull(item);
+    public void updateItem() {
+        Item itemToUpdate = testHelper.createSavedItem();
+        Item item = testHelper.createItem();
+        itemToUpdate.setName(item.getName());
+        itemToUpdate.setBrand(item.getBrand());
+        itemToUpdate.setCategory(testHelper.createSavedCategory());
+        itemToUpdate.setColor(item.getColor());
+        itemToUpdate.setPrice(item.getPrice());
+        itemToUpdate = itemService.update(itemToUpdate);
+        assertNotNull(itemToUpdate);
     }
 
     @Test
-    public void deleteItem() throws Exception {
-        Item item = testHelper.createSavedItem();
-        itemService.deleteById(item.getId());
+    public void deleteItem() {
+        Long id = testHelper.createSavedItem().getId();
+        itemService.deleteById(id);
     }
 
 
