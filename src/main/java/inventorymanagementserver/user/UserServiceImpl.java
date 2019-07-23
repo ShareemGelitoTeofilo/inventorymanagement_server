@@ -9,13 +9,14 @@ import java.util.List;
 @Service
 public class UserServiceImpl implements UserService {
 
+    private final static String NOT_FOUND = "User not found";
     @Autowired
     private UserRepository userRepository;
 
     @Override
     public User signUp(User user) {
         User existingUserWithSameUsername = userRepository.findByUsername(user.getUsername());
-        if(existingUserWithSameUsername != null){
+        if (existingUserWithSameUsername != null) {
             throw new InventoryException("Username already exist");
         }
         return userRepository.save(user);
@@ -24,24 +25,22 @@ public class UserServiceImpl implements UserService {
     @Override
     public User login(String username, String password) {
         User user = userRepository.findByUsernameAndPassword(username, password);
-        if(user == null){
-            throw new InventoryException("User not found");
+        if (user == null) {
+            throw new InventoryException(NOT_FOUND);
         }
         return user;
     }
 
     @Override
     public User findById(Long id) {
-        String message = String.format("User with ID %s not found", id);
-        return userRepository.findById(id).orElseThrow(() -> new InventoryException(message));
+        return userRepository.findById(id).orElseThrow(() -> new InventoryException(NOT_FOUND));
     }
 
     @Override
     public User findByUsername(String username) {
         User user = userRepository.findByUsername(username);
-        if(user == null){
-            String message = String.format("User with username %s not found", username);
-            throw new InventoryException(message);
+        if (user == null) {
+            throw new InventoryException(NOT_FOUND);
         }
         return user;
     }
@@ -55,14 +54,14 @@ public class UserServiceImpl implements UserService {
     public User update(User user) {
         User userToUpdate = findById(user.getId());
         User existingUserWithSameName = userRepository.findByUsername(user.getUsername());
-        if(existingUserWithSameName != null && !existingUserWithSameName.equals(user)){
+        if (existingUserWithSameName != null && !existingUserWithSameName.equals(user)) {
             throw new InventoryException("Username already taken");
         }
 
         userToUpdate.setName(user.getName());
         userToUpdate.setAddress(user.getAddress());
         userToUpdate.setUsername(user.getUsername());
-        if(user.getPassword() != null){
+        if (user.getPassword() != null) {
             userToUpdate.setPassword(user.getPassword());
         }
         return userRepository.save(userToUpdate);
@@ -70,9 +69,8 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void deleteById(Long id) {
-        if(!userRepository.existsById(id)){
-            String message = String.format("User with ID %s not found", id);
-            throw new InventoryException(message);
+        if (!userRepository.existsById(id)) {
+            throw new InventoryException(NOT_FOUND);
         }
         userRepository.deleteById(id);
     }

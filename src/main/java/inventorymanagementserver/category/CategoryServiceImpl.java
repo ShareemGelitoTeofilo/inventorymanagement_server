@@ -11,6 +11,8 @@ import java.util.List;
 @Service
 public class CategoryServiceImpl implements CategoryService {
 
+    private final static String NOT_FOUND = "Category/s not found";
+
     @Autowired
     private CategoryRepository categoryRepository;
     @Autowired
@@ -19,7 +21,7 @@ public class CategoryServiceImpl implements CategoryService {
     @Override
     public Category insert(Category category) {
         Category existingCategory = categoryRepository.findByName(category.getName());
-        if(existingCategory != null){
+        if (existingCategory != null) {
             throw new InventoryException("Category already exist");
         }
         return categoryRepository.save(category);
@@ -27,27 +29,26 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public Category findById(Long id) {
-        String message = String.format("Category with ID %s not found", id);
         return categoryRepository.findById(id)
-                .orElseThrow(() -> new InventoryException(message));
+                .orElseThrow(() -> new InventoryException(NOT_FOUND));
     }
 
     @Override
-    public List<Category> findAll()  {
+    public List<Category> findAll() {
         List<Category> categories = categoryRepository.findAll();
-        if(categories.isEmpty()){
-            throw new InventoryException("No category found");
+        if (categories.isEmpty()) {
+            throw new InventoryException(NOT_FOUND);
         }
         return categories;
     }
 
     @Override
     public Category update(Category category) {
-        if (!categoryRepository.existsById(category.getId()))    {
-            throw new InventoryException("Category doesn't exist");
+        if (!categoryRepository.existsById(category.getId())) {
+            throw new InventoryException(NOT_FOUND);
         }
         Category existingCategoryWithSameName = categoryRepository.findByName(category.getName());
-        if(existingCategoryWithSameName != null && !existingCategoryWithSameName.equals(category)){
+        if (existingCategoryWithSameName != null && !existingCategoryWithSameName.equals(category)) {
             throw new InventoryException("Category name already taken");
         }
         return categoryRepository.save(category);

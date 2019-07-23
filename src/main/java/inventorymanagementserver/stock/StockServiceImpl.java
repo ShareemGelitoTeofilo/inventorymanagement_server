@@ -9,6 +9,7 @@ import java.util.List;
 @Service
 public class StockServiceImpl implements StockService {
 
+    private final static String NOT_FOUND = "Stock/s not found";
     @Autowired
     private StockRepository stockRepository;
 
@@ -19,16 +20,15 @@ public class StockServiceImpl implements StockService {
 
     @Override
     public Stock findById(Long id) {
-        String message = String.format("Stock with ID %s not found", id);
-        return stockRepository.findById(id).orElseThrow(() -> new InventoryException(message));
+        return stockRepository.findById(id)
+                .orElseThrow(() -> new InventoryException(NOT_FOUND));
     }
 
     @Override
     public Stock findByItemId(Long id) {
-        String message = String.format("There's no stock for item with ID %s", id);
         Stock stock = stockRepository.findByItemId(id);
         if(stock == null){
-            throw new InventoryException(message);
+            throw new InventoryException(NOT_FOUND);
         }
         return stock;
     }
@@ -37,7 +37,7 @@ public class StockServiceImpl implements StockService {
     public List<Stock> findAll() {
         List<Stock> stocks = stockRepository.findAll();
         if(stocks.isEmpty()){
-            throw new InventoryException("No stock/s found");
+            throw new InventoryException(NOT_FOUND);
         }
         return stocks;
     }
@@ -52,8 +52,7 @@ public class StockServiceImpl implements StockService {
     @Override
     public void deleteById(Long id) {
         if(!stockRepository.existsById(id)){
-            String message = String.format("Stock with ID %s not found", id);
-            throw new InventoryException(message);
+            throw new InventoryException(NOT_FOUND);
         }
         stockRepository.deleteById(id);
     }

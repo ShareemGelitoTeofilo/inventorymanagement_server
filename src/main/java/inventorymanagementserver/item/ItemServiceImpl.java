@@ -27,9 +27,8 @@ public class ItemServiceImpl implements ItemService {
 
     @Override
     public Item findById(Long id) {
-        String message = String.format("Item with the ID %s not found", id);
         return itemRepository.findById(id)
-                .orElseThrow(()-> new InventoryException(message));
+                .orElseThrow(()-> new InventoryException("Item not found"));
     }
 
     @Override
@@ -65,8 +64,7 @@ public class ItemServiceImpl implements ItemService {
     @Override
     public void deleteById(Long id) {
         if(!itemRepository.existsById(id)){
-            String message = String.format("Item with ID %s not found", id);
-            throw new InventoryException(message);
+            throw new InventoryException("Item not found");
         }
         itemRepository.deleteById(id);
     }
