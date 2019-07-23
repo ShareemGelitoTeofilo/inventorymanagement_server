@@ -13,39 +13,37 @@ public class UserResource {
     private UserService userService;
 
     @PostMapping("/signUp")
-    public User signUpUser(@RequestBody User user) throws Exception {
-        return userService.signUpUser(user);
+    public User signUp(@RequestBody User user) {
+        return userService.signUp(user);
     }
 
     @PostMapping("/login")
-    public User loginUser(@RequestBody LoginForm loginForm) throws Exception {
+    public User login(@RequestBody LoginForm loginForm) {
         return userService.login(loginForm.getUsername(), loginForm.getPassword());
     }
 
     @GetMapping("/findById/{id}")
-    public User findById(@PathVariable Long id) throws Exception {
+    public User findById(@PathVariable Long id){
         return userService.findById(id);
     }
 
     @GetMapping("/findByUsername/{username}")
-    public User findByUsername(@PathVariable String username) throws Exception {
+    public User findByUsername(@PathVariable String username) {
         return userService.findByUsername(username);
     }
 
     @GetMapping("/findAll")
-    public List<User> findAllUsers(){
+    public List<User> findAll(){
         return userService.findAll();
     }
 
     @PostMapping("/update")
-    public User update(@RequestBody User user) throws Exception {
+    public User update(@RequestBody User user) {
         return userService.update(user);
     }
 
     @DeleteMapping("/deleteById/{id}")
-    public void deleteById(@PathVariable Long id) throws Exception {
+    public void deleteById(@PathVariable Long id) {
         userService.deleteById(id);
     }
-
-
 }
