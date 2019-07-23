@@ -13,55 +13,55 @@ import static org.junit.Assert.assertNotNull;
 
 public class ItemRepositoryTest extends ServerMainClassTest {
 
-
     @Autowired
     private ItemRepository itemRepository;
     @Autowired
     private TestHelper testHelper;
 
     @Test
-    public void saveItem(){
+    public void save(){
         Item item = testHelper.createItem();
         item = itemRepository.save(item);
         assertNotNull(item);
     }
 
     @Test
-    public void findItemById(){
+    public void findById(){
         Item item = testHelper.createSavedItem();
         item = itemRepository.findById(item.getId()).get();
         assertNotNull(item);
     }
 
     @Test
-    public void findItemByName(){
+    public void findByName(){
         Item item = testHelper.createSavedItem();
         item = itemRepository.findByName(item.getName());
         assertNotNull(item);
     }
 
     @Test
-    public void findAllItems(){
+    public void findAll(){
         List<Item> items = itemRepository.findAll();
         assertFalse(items.isEmpty());
     }
 
     @Test
-    public void updateItem(){
-        Item item = testHelper.createSavedItem();
-        item.setName("new name");
-        item.setBrand("new brand");
-        item.setColor("new color");
-        item.setCategory(testHelper.createSavedCategory());
-        item.setPrice(123.23);
-        item = itemRepository.save(item);
-        assertNotNull(item);
+    public void update(){
+        Item itemToUpdate = testHelper.createSavedItem();
+        Item item = testHelper.createItem();
+        itemToUpdate.setName(item.getName());
+        itemToUpdate.setBrand(item.getBrand());
+        itemToUpdate.setColor(item.getColor());
+        itemToUpdate.setCategory(testHelper.createSavedCategory());
+        itemToUpdate.setPrice(item.getPrice());
+        itemToUpdate = itemRepository.save(itemToUpdate);
+        assertNotNull(itemToUpdate);
     }
 
     @Test
-    public void deleteItemById(){
+    public void deleteById(){
         Item item = testHelper.createSavedItem();
-        itemRepository.delete(item);
+        itemRepository.deleteById(item.getId());
     }
 
     @Test
@@ -70,5 +70,4 @@ public class ItemRepositoryTest extends ServerMainClassTest {
         List<Item> items = itemRepository.findAllByCategory(category);
         assertFalse(items.isEmpty());
     }
-
 }
