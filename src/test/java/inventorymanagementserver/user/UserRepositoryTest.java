@@ -18,51 +18,52 @@ public class UserRepositoryTest extends ServerMainClassTest {
     private TestHelper testHelper;
 
     @Test
-    public void saveUser(){
+    public void save(){
         User user = testHelper.createUser();
         assertNotNull(userRepository.save(user));
     }
 
     @Test
-    public void findUserByUsernameAndPassword(){
+    public void findByUsernameAndPassword(){
         User user = testHelper.createSavedUser();
         user = userRepository.findByUsernameAndPassword(user.getUsername(), user.getPassword());
         assertNotNull(user);
     }
 
     @Test
-    public void findUserById(){
+    public void findById(){
         User user = testHelper.createSavedUser();
         user = userRepository.findById(user.getId()).get();
         assertNotNull(user);
     }
 
     @Test
-    public void findUserByName(){
+    public void findByUsername(){
         String username = testHelper.createSavedUser().getUsername();
         User user = userRepository.findByUsername(username);
         assertNotNull(user);
     }
 
     @Test
-    public void findAllUsers(){
+    public void findAll(){
         List<User> users = userRepository.findAll();
         assertFalse(users.isEmpty());
     }
 
     @Test
-    public void updateUser(){
-        User user = testHelper.createSavedUser();
-        user.setAddress("new address");
-        user.setName("new name");
-        user.setPassword("new password");
-        user.setUsername("new username");
-        user = userRepository.save(user);
-        assertNotNull(user);
+    public void update(){
+        User userToUpdate = testHelper.createSavedUser();
+        User user = testHelper.createUser();
+        userToUpdate.setAddress(user.getAddress());
+        userToUpdate.setName(user.getName());
+        userToUpdate.setPassword(user.getPassword());
+        userToUpdate.setUsername(user.getUsername());
+        userToUpdate = userRepository.save(userToUpdate);
+        assertNotNull(userToUpdate);
     }
 
     @Test
-    public void deleteUser(){
+    public void deleteById(){
         User user = testHelper.createSavedUser();
         userRepository.deleteById(user.getId());
     }
