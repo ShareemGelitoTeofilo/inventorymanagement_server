@@ -3,10 +3,10 @@ package inventorymanagementserver.item;
 import java.util.List;
 
 public interface ItemService {
-    Item registerItem(Item item) throws Exception;
-    Item findById(Long id) throws Exception;
-    Item findByName(String name) throws Exception;
-    List<Item> findAll() throws Exception;
-    Item updateItem(Item item) throws Exception;
-    void deleteById(Long id) throws Exception;
+    Item insert(Item item);
+    Item findById(Long id);
+    Item findByName(String name);
+    List<Item> findAll();
+    Item update(Item item);
+    void deleteById(Long id);
 }
