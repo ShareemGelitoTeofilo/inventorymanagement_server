@@ -1,5 +1,6 @@
 package inventorymanagementserver.user;
 
+import inventorymanagementserver.exception.InventoryException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,35 +13,35 @@ public class UserServiceImpl implements UserService {
     private UserRepository userRepository;
 
     @Override
-    public User signUpUser(User user) throws Exception {
+    public User signUp(User user) {
         User existingUserWithSameUsername = userRepository.findByUsername(user.getUsername());
         if(existingUserWithSameUsername != null){
-            throw new Exception("Username already exist");
+            throw new InventoryException("Username already exist");
         }
         return userRepository.save(user);
     }
 
     @Override
-    public User login(String username, String password) throws Exception {
+    public User login(String username, String password) {
         User user = userRepository.findByUsernameAndPassword(username, password);
         if(user == null){
-            throw new Exception("User not found");
+            throw new InventoryException("User not found");
         }
         return user;
     }
 
     @Override
-    public User findById(Long id) throws Exception {
+    public User findById(Long id) {
         String message = String.format("User with ID %s not found", id);
-        return userRepository.findById(id).orElseThrow(() -> new Exception(message));
+        return userRepository.findById(id).orElseThrow(() -> new InventoryException(message));
     }
 
     @Override
-    public User findByUsername(String username) throws Exception {
+    public User findByUsername(String username) {
         User user = userRepository.findByUsername(username);
         if(user == null){
             String message = String.format("User with username %s not found", username);
-            throw new Exception(message);
+            throw new InventoryException(message);
         }
         return user;
     }
@@ -51,26 +52,28 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User update(User user) throws Exception {
+    public User update(User user) {
         User userToUpdate = findById(user.getId());
         User existingUserWithSameName = userRepository.findByUsername(user.getUsername());
         if(existingUserWithSameName != null && !existingUserWithSameName.equals(user)){
-            throw new Exception("Username already taken");
+            throw new InventoryException("Username already taken");
         }
 
         userToUpdate.setName(user.getName());
         userToUpdate.setAddress(user.getAddress());
         userToUpdate.setUsername(user.getUsername());
-        if(!user.getPassword().isEmpty() || user.getPassword() != null){
+        if(user.getPassword() != null){
             userToUpdate.setPassword(user.getPassword());
         }
-
-        return userRepository.save(user);
+        return userRepository.save(userToUpdate);
     }
 
     @Override
-    public void deleteById(Long id) throws Exception {
-        findById(id);
+    public void deleteById(Long id) {
+        if(!userRepository.existsById(id)){
+            String message = String.format("User with ID %s not found", id);
+            throw new InventoryException(message);
+        }
         userRepository.deleteById(id);
     }
 }
