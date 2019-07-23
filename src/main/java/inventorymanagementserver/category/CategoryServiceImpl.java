@@ -17,7 +17,7 @@ public class CategoryServiceImpl implements CategoryService {
     private ItemRepository itemRepository;
 
     @Override
-    public Category registerCategory(Category category) {
+    public Category insert(Category category) {
         Category existingCategory = categoryRepository.findByName(category.getName());
         if(existingCategory != null){
             throw new InventoryException("Category already exist");
@@ -42,7 +42,7 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public Category updateCategory(Category category) {
+    public Category update(Category category) {
         if (!categoryRepository.existsById(category.getId()))    {
             throw new InventoryException("Category doesn't exist");
         }
