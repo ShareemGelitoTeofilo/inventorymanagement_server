@@ -6,6 +6,7 @@ import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
+import java.util.UUID;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
@@ -18,28 +19,28 @@ public class UserServiceTest extends ServerMainClassTest {
     private TestHelper testHelper;
 
     @Test
-    public void signUpUser() throws Exception {
+    public void signUp() {
         User user = testHelper.createUser();
-        user = userService.signUpUser(user);
+        user = userService.signUp(user);
         assertNotNull(user);
     }
 
     @Test
-    public void loginUser() throws Exception {
+    public void login() {
         User user = testHelper.createSavedUser();
         user = userService.login(user.getUsername(), user.getPassword());
         assertNotNull(user);
     }
 
     @Test
-    public void findById() throws Exception {
+    public void findById() {
         User user = testHelper.createSavedUser();
         user = userService.findById(user.getId());
         assertNotNull(user);
     }
 
     @Test
-    public void findByUsername() throws Exception {
+    public void findByUsername() {
         User user = testHelper.createSavedUser();
         user = userService.findByUsername(user.getUsername());
         assertNotNull(user);
@@ -52,16 +53,17 @@ public class UserServiceTest extends ServerMainClassTest {
     }
 
     @Test
-    public void update() throws Exception {
+    public void update() {
         User user = testHelper.createSavedUser();
-        user.setUsername("new username123");
+        String username = UUID.randomUUID().toString().substring(0, 8);
+        user.setUsername(username);
         user.setPassword("new password");
         user = userService.update(user);
         assertNotNull(user);
     }
 
     @Test
-    public void deleteById() throws Exception {
+    public void deleteById() {
         User user = testHelper.createSavedUser();
         userService.deleteById(user.getId());
     }
