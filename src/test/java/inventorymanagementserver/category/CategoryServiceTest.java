@@ -19,36 +19,36 @@ public class CategoryServiceTest extends ServerMainClassTest {
     private TestHelper testHelper;
 
     @Test
-    public void registerCategory() {
+    public void insert() {
         Category category = testHelper.createCategory();
-        category = categoryService.registerCategory(category);
+        category = categoryService.insert(category);
         assertNotNull(category);
     }
 
     @Test
-    public void findRegisterById() {
+    public void findById() {
         Category category = testHelper.createSavedCategory();
         category = categoryService.findById(category.getId());
         assertNotNull(category);
     }
 
     @Test
-    public void findAllCategories() {
+    public void findAll() {
         List<Category> categories = categoryService.findAll();
         assertFalse(categories.isEmpty());
     }
 
     @Test
-    public void updateCategory() {
+    public void update() {
         Category category = testHelper.createSavedCategory();
         String name = UUID.randomUUID().toString();
         category.setName(name);
-        category = categoryService.updateCategory(category);
+        category = categoryService.update(category);
         assertNotNull(category);
     }
 
     @Test
-    public void deleteCategoryById() {
+    public void deleteById() {
         Category category = testHelper.createSavedCategory();
         categoryService.deleteById(category.getId());
     }
