@@ -1,5 +1,6 @@
 package inventorymanagementserver.stock;
 
+import inventorymanagementserver.exception.InventoryException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -9,7 +10,7 @@ import java.util.List;
 public class StockServiceImpl implements StockService {
 
     @Autowired
-    StockRepository stockRepository;
+    private StockRepository stockRepository;
 
     @Override
     public Stock insert(Stock stock) {
@@ -17,40 +18,43 @@ public class StockServiceImpl implements StockService {
     }
 
     @Override
-    public Stock findById(Long id) throws Exception {
+    public Stock findById(Long id) {
         String message = String.format("Stock with ID %s not found", id);
-        return stockRepository.findById(id).orElseThrow(() -> new Exception(message));
+        return stockRepository.findById(id).orElseThrow(() -> new InventoryException(message));
     }
 
     @Override
-    public Stock findByItemId(Long id) throws Exception {
+    public Stock findByItemId(Long id) {
         String message = String.format("There's no stock for item with ID %s", id);
         Stock stock = stockRepository.findByItemId(id);
         if(stock == null){
-            throw new Exception(message);
+            throw new InventoryException(message);
         }
         return stock;
     }
 
     @Override
-    public List<Stock> findAll() throws Exception {
+    public List<Stock> findAll() {
         List<Stock> stocks = stockRepository.findAll();
-        if(stocks == null ||  stocks.isEmpty()){
-            throw new Exception("No stocks found");
+        if(stocks.isEmpty()){
+            throw new InventoryException("No stock/s found");
         }
         return stocks;
     }
 
     @Override
-    public Stock update(Stock stock) throws Exception {
-        Stock existingStock = findById(stock.getId());
-        existingStock.setQuantity(stock.getQuantity());
-        return stockRepository.save(existingStock);
+    public Stock update(Long stockId, int quantity) {
+        Stock stock = findById(stockId);
+        stock.setQuantity(quantity);
+        return stockRepository.save(stock);
     }
 
     @Override
-    public void deleteById(Long id) throws Exception {
-        findById(id);
+    public void deleteById(Long id) {
+        if(!stockRepository.existsById(id)){
+            String message = String.format("Stock with ID %s not found", id);
+            throw new InventoryException(message);
+        }
         stockRepository.deleteById(id);
     }
 }
