@@ -40,7 +40,8 @@ public class TestHelper {
     }
 
     public Category createCategory() {
-        return new Category("name");
+        String name = UUID.randomUUID().toString().substring(0, 8);
+        return new Category(name);
     }
 
     public Category createSavedCategory() {
