@@ -12,34 +12,33 @@ public class ItemResource {
     @Autowired
     private ItemService itemService;
 
-    @PostMapping("/register")
-    public Item registerItem(@RequestBody  Item item) throws Exception {
-        return itemService.registerItem(item);
+    @PostMapping("/insert")
+    public Item insert(@RequestBody  Item item) {
+        return itemService.insert(item);
     }
 
     @GetMapping("/findById/{id}")
-    public Item findById(@PathVariable  Long id) throws Exception {
+    public Item findById(@PathVariable  Long id) {
         return itemService.findById(id);
     }
 
     @GetMapping("/findByName/{name}")
-    public Item findByName(@PathVariable String name) throws Exception {
+    public Item findByName(@PathVariable String name) {
         return itemService.findByName(name);
     }
 
     @GetMapping("/findAll")
-    public List<Item> findAll() throws Exception {
+    public List<Item> findAll() {
         return itemService.findAll();
     }
 
     @PostMapping("/update")
-    public Item updateItem(@RequestBody Item item) throws Exception {
-        return itemService.updateItem(item);
+    public Item updateItem(@RequestBody Item item) {
+        return itemService.update(item);
     }
 
     @DeleteMapping("/deleteById/{id}")
-    public void deleteById(@PathVariable Long id) throws Exception {
+    public void deleteById(@PathVariable Long id) {
         itemService.deleteById(id);
     }
-
 }
