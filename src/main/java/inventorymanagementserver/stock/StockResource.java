@@ -1,6 +1,7 @@
 package inventorymanagementserver.stock;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -18,27 +19,27 @@ public class StockResource {
     }
 
     @GetMapping("/findById/{id}")
-    public Stock findById(@PathVariable Long id) throws Exception {
+    public Stock findById(@PathVariable Long id) {
         return stockService.findById(id);
     }
 
     @GetMapping("/findByItemId/{id}")
-    public Stock findByItemId(@PathVariable Long id) throws Exception {
+    public Stock findByItemId(@PathVariable Long id) {
         return stockService.findByItemId(id);
     }
 
     @GetMapping("/findAll")
-    public List<Stock> findAll() throws Exception {
+    public List<Stock> findAll() {
         return stockService.findAll();
     }
 
     @PostMapping("/update")
-    public Stock update(@RequestBody Stock stock) throws Exception {
-        return stockService.update(stock);
+    public Stock update(@Param("stockId") Long stockId, int quantity) {
+        return stockService.update(stockId, quantity);
     }
 
     @DeleteMapping("/deleteById/{id}")
-    public void deleteById(@PathVariable Long id) throws Exception {
+    public void deleteById(@PathVariable Long id) {
         stockService.deleteById(id);
     }
 }
