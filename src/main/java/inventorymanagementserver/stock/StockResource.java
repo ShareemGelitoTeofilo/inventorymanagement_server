@@ -34,7 +34,7 @@ public class StockResource {
     }
 
     @PostMapping("/update")
-    public Stock update(@Param("stockId") Long stockId, int quantity) {
+    public Stock update(@Param("stockId") Long stockId, @Param("quantity") int quantity) {
         return stockService.update(stockId, quantity);
     }
 
