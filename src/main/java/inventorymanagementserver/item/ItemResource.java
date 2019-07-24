@@ -33,7 +33,7 @@ public class ItemResource {
     }
 
     @PostMapping("/update")
-    public Item updateItem(@RequestBody Item item) {
+    public Item update(@RequestBody Item item) {
         return itemService.update(item);
     }
 
