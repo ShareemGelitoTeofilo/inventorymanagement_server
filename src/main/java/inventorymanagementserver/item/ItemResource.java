@@ -11,11 +11,7 @@ public class ItemResource {
 
     @Autowired
     private ItemService itemService;
-
-    @PostMapping("/insert")
-    public Item insert(@RequestBody  Item item) {
-        return itemService.insert(item);
-    }
+    
 
     @GetMapping("/findById/{id}")
     public Item findById(@PathVariable  Long id) {
