@@ -32,7 +32,7 @@ public class CategoryResource {
         return categoryService.update(category);
     }
 
-    @DeleteMapping("/delete/{id}")
+    @DeleteMapping("/deleteById/{id}")
     public void deleteById(@PathVariable Long id) {
         categoryService.deleteById(id);
     }
