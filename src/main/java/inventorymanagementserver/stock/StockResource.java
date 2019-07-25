@@ -12,7 +12,7 @@ public class StockResource {
 
     @Autowired
     private StockService stockService;
-    
+
 
     @GetMapping("/findById/{id}")
     public Stock findById(@PathVariable Long id) {
