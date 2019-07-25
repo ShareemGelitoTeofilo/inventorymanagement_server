@@ -12,11 +12,7 @@ public class StockResource {
 
     @Autowired
     private StockService stockService;
-
-    @PostMapping("/insert")
-    public Stock insert(@RequestBody Stock stock) {
-        return stockService.insert(stock);
-    }
+    
 
     @GetMapping("/findById/{id}")
     public Stock findById(@PathVariable Long id) {
