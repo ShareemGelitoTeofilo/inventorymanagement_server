@@ -11,7 +11,7 @@ public class ItemResource {
 
     @Autowired
     private ItemService itemService;
-    
+
 
     @GetMapping("/findById/{id}")
     public Item findById(@PathVariable  Long id) {
