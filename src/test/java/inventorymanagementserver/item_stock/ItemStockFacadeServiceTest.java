@@ -20,4 +20,11 @@ public class ItemStockFacadeServiceTest extends ServerMainClassTest {
         item = itemStockFacadeService.inertItemWithStock(item);
         assertNotNull(item);
     }
+
+    @Test
+    public void deleteItemWithStock() {
+        Item item = testHelper.getItem();
+        item = itemStockFacadeService.inertItemWithStock(item);
+        itemStockFacadeService.deleteItemWithStock(item.getId());
+    }
 }

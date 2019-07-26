@@ -20,4 +20,11 @@ public class ItemStockFacadeServiceImpl implements ItemStockFacadeService {
         stockService.insert(new Stock(item, 0));
         return item;
     }
+
+    @Override
+    public void deleteItemWithStock(Long itemId) {
+        Stock stock = stockService.findByItemId(itemId);
+        stockService.deleteById(stock.getId());
+        itemService.deleteById(itemId);
+    }
 }
